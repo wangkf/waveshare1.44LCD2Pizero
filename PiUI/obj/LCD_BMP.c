@@ -26,9 +26,12 @@ uint8_t LCD_ShowBmp(int keys)
 	if(keys==7) dir = opendir("./netpic/");
 	while((ptr = readdir(dir)) != NULL)
 {// fp = 0x00426aa0
-	if(keys==0) sprintf(filedirname,"./pic/%s",ptr->d_name);
+	if(keys==0) sprintf(filedirname,"./pic/%s",      ptr->d_name);
 	if(keys==4) sprintf(filedirname,"./picself/%s",ptr->d_name);
 	if(keys==7) sprintf(filedirname,"./netpic/%s",ptr->d_name);
+//	printf("%s\n",filedirname);
+
+	if(strstr(filedirname,".bmp")==NULL) {printf("Cann't open the bmp file!\n");continue;}//continue继续下一条，break跳出循环
 
 	if((fp = fopen(filedirname, "rb")) == NULL) {printf("Cann't open the file!\n");return 0;}
 
@@ -50,7 +53,7 @@ uint8_t LCD_ShowBmp(int keys)
         for(col = 0; col < bmpInfoHeader.bWidth; col++) {
 			if(fread((char *)&rgb, 1, len, fp) != len){
 				//perror("get bmpdata:\r\n");
-				break;
+				continue;
 			}
             data = RGB((rgb.rgbRed), (rgb.rgbGreen), (rgb.rgbBlue));
             LCD_SetColor(data, 1, 1);

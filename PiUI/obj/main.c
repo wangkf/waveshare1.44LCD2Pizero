@@ -33,14 +33,14 @@ int main(void)
 	void myInterruptServiceKeyRIGHT(){flagKEYRIGHT=1;}
 	void myInterruptServiceKeyPRESS(){flagKEYPRESS=1;}
 
-	if(wiringPiISR(KEYA,INT_EDGE_FALLING,&myInterruptServiceKeyA)<0){printf("unable ISR-KEYA\n");}  //注册中断程序，设置引脚下降沿触发
-	if(wiringPiISR(KEYB,INT_EDGE_FALLING,&myInterruptServiceKeyB)<0){printf("unable ISR-KEYB\n");}
-	if(wiringPiISR(KEYC,INT_EDGE_FALLING,&myInterruptServiceKeyC)<0){printf("unable ISR-KEYC\n");}
-	if(wiringPiISR(KEYUP,INT_EDGE_FALLING,&myInterruptServiceKeyUP)<0){printf("unable ISR-KEYUP\n");}
+	if(wiringPiISR(KEYA,          INT_EDGE_FALLING,&myInterruptServiceKeyA)<0){printf("unable ISR-KEYA\n");}  //注册中断程序，设置引脚下降沿触发
+	if(wiringPiISR(KEYB,          INT_EDGE_FALLING,&myInterruptServiceKeyB)<0){printf("unable ISR-KEYB\n");}
+	if(wiringPiISR(KEYC,          INT_EDGE_FALLING,&myInterruptServiceKeyC)<0){printf("unable ISR-KEYC\n");}
+	if(wiringPiISR(KEYUP,       INT_EDGE_FALLING,&myInterruptServiceKeyUP)<0){printf("unable ISR-KEYUP\n");}
 	if(wiringPiISR(KEYDOWN,INT_EDGE_FALLING,&myInterruptServiceKeyDOWN)<0){printf("unable ISR-KEYDOWN\n");}
-	if(wiringPiISR(KEYLEFT,INT_EDGE_FALLING,&myInterruptServiceKeyLEFT)<0){printf("unable ISR-KEYLEFT\n");}
-	if(wiringPiISR(KEYRIGHT,INT_EDGE_FALLING,&myInterruptServiceKeyRIGHT)<0){printf("unable ISR-KEYRIGHT\n");}
-	if(wiringPiISR(KEYPRESS,INT_EDGE_FALLING,&myInterruptServiceKeyPRESS)<0){printf("unable ISR-KEYPRESS\n");}
+	if(wiringPiISR(KEYLEFT,     INT_EDGE_FALLING,&myInterruptServiceKeyLEFT)<0){printf("unable ISR-KEYLEFT\n");}
+	if(wiringPiISR(KEYRIGHT,  INT_EDGE_FALLING,&myInterruptServiceKeyRIGHT)<0){printf("unable ISR-KEYRIGHT\n");}
+	if(wiringPiISR(KEYPRESS,  INT_EDGE_FALLING,&myInterruptServiceKeyPRESS)<0){printf("unable ISR-KEYPRESS\n");}
 
 	//2.初始显示界面
 	LCD_SCAN_DIR LCD_ScanDir = SCAN_DIR_DFT;
@@ -55,15 +55,15 @@ int main(void)
 	if(flagKEYA){while(is_KEYA==LOW);GUI_Show();flagKEYA=0;}
 	if(flagKEYB){while(is_KEYB==LOW);LCD_ShowBmp(0);GUI_Show();flagKEYB=0;}
 	if(flagKEYC){while(is_KEYC==LOW);GUI_Showparts(0);Driver_Delay_ms(3000);GUI_Show();flagKEYC=0;}
-	if(flagKEYUP){while(is_KEYUP==LOW); LCD_ShowBmp(4);GUI_Show();flagKEYUP=0;}
-	if(flagKEYDOWN){while(is_KEYDOWN==LOW); printf("DOWN\n"); flagKEYDOWN=0;}
-	if(flagKEYLEFT){while(is_KEYLEFT==LOW); printf("LEFT\n"); flagKEYLEFT=0;}
-	if(flagKEYRIGHT){while(is_KEYRIGHT==LOW); printf("RIGHT\n"); flagKEYRIGHT=0;}
-	if(flagKEYPRESS){while(is_KEYPRESS==LOW); LCD_ShowBmp(7);GUI_Show(); flagKEYPRESS=0;}
+	if(flagKEYUP){while(is_KEYUP==LOW);LCD_ShowBmp(4);GUI_Show();flagKEYUP=0;}
+	if(flagKEYDOWN){while(is_KEYDOWN==LOW);printf("DOWN\n");flagKEYDOWN=0;}
+	if(flagKEYLEFT){while(is_KEYLEFT==LOW);printf("LEFT\n");flagKEYLEFT=0;}
+	if(flagKEYRIGHT){while(is_KEYRIGHT==LOW);printf("RIGHT\n"); flagKEYRIGHT=0;}
+	if(flagKEYPRESS){while(is_KEYPRESS==LOW);LCD_ShowBmp(7);GUI_Show();flagKEYPRESS=0;}
 
 	if(time(0)%60<5)GUI_Showparts(60);//每分钟部分刷新，更新部分系统信息（考虑到系统延时，按分钟刷新时留5秒延时）
 		GUI_Showparts(1);//每秒钟局部刷新，比如秒针闪烁
-		Driver_Delay_ms(800);
+		Driver_Delay_ms(600);
 	}
 	//3.系统退出
 	System_Exit();

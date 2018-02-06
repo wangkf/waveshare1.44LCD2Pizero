@@ -5,7 +5,7 @@ DIR_BIN = ./bin
 OBJ_C = $(wildcard ${DIR_FONTS}/*.c ${DIR_OBJ}/*.c)
 OBJ_O = $(patsubst %.c,${DIR_BIN}/%.o,$(notdir ${OBJ_C}))
 
-TARGET =myui
+TARGET =PiUI
 #BIN_TARGET = ${DIR_BIN}/${TARGET}
 
 CC = gcc
